@@ -1,0 +1,42 @@
+name: Laravel CI/CD to Shared Hosting via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to Shared Hosting
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: 8.2
+
+    - name: Install dependencies
+      run: composer install --no-dev --optimize-autoloader
+
+    - name: Deploy via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: ${{ secrets.FTP_PORT }}
+        local-dir: ./
+        server-dir: ./ # ganti sesuai folder Laravel kamu di hosting
+        exclude: |
+          **/.git*
+          **/node_modules/**
+          .env
+          tests/**
+          README.md
+
+    - name: Run Migrations via Webhook
+      run: curl "${{ secrets.DEPLOY_URL }}"
