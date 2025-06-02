@@ -36,6 +36,7 @@ jobs:
           **/.git/**
           node_modules/**
           tests/**
+          vendor/**
           README.md
           .env
           .github/**
