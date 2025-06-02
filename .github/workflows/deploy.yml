@@ -32,8 +32,9 @@ jobs:
         local-dir: ./
         server-dir: ./ # ganti sesuai folder Laravel kamu di hosting
         exclude: |
-          **/.git*
-          **/node_modules/**
+          .git/**
+          **/.git/**
+          node_modules/**
           tests/**
           README.md
           .env
