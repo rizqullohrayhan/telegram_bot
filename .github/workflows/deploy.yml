@@ -34,9 +34,10 @@ jobs:
         exclude: |
           **/.git*
           **/node_modules/**
-          .env
           tests/**
           README.md
+          .env
+          .github/**
 
     - name: Run Migrations via Webhook
       run: curl "${{ secrets.DEPLOY_URL }}"
