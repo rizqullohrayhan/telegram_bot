@@ -26,7 +26,7 @@ Route::get('/setwebhook', function () {
     $telegram = new Api(env('TELEGRAM_BOT_TOKEN'));
 
     $telegram->setWebhook([
-        'url' => 'https://v3421083.mhs.d3tiuns.com/hris/bot/webhook',
+        'url' => 'https://v3421083.mhs.d3tiuns.com/telegram_bot/bot/webhook',
     ]);
 
     return 'Webhook set!';
